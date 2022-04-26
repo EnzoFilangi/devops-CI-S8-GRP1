@@ -4,10 +4,10 @@ This is the repository of group 1 of the SE1 class
 # Team
 
 - Bouthayna ATIK
-- Nicolas CRESSEAUX
 - Samuel BADER
-- Enzo FILANGI
+- Nicolas CRESSEAUX
 - Tristan FIEVET
+- Enzo FILANGI
 - Paul GODIN
 - Carlos MADRUGA
 - Alex SALMON
