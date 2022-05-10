@@ -15,7 +15,8 @@ const database = mysql.createPool({
 
 /*
  Méthodes de l'API
- */
+*/
+
 const login = require('./routes/login');
 const register = require('./routes/register');
 const disconnect = require('./routes/disconnect')

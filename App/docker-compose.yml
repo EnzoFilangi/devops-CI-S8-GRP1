@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.0.22
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'app'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./SQL/Database_creation.sql:/docker-entrypoint-initdb.d/1.sql
+  back:
+    image: devops/backend
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    environment:
+      DB_USER: 'user'
+      DB_PASSWORD: 'password'
+      DB_HOST: 'host.docker.internal'
+      DB_NAME: 'app'
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
+  front:
+    image: devops/frontend
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - '2000:2000'
+    restart: unless-stopped
+
+
+volumes:
+  my-db:
