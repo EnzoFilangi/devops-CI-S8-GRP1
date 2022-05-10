@@ -23,4 +23,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          script: sh ~/devops-CI-S8-GRP1/deploy.sh
+          script: sh ~/devops-CI-S8-GRP1/App/deploy.sh
