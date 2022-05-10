@@ -63,7 +63,7 @@ export class AuthenticatorService {
 }
 
 /**
- * Interface de la réponse du serveur pour la requête d'obtiention du statut de connexion
+ * Interface de la réponse du serveur pour la requête d'obtention du statut de connexion
  */
 interface IConnectionStatusAnswer {
   connected: boolean;
