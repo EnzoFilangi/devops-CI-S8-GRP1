@@ -1,11 +1,11 @@
 echo "Deploying changes..."
 
-cd /home/debian/devops-CI-S8-GRP1
+cd /home/devops/devops-CI-S8-GRP1/App
 git pull
 
-sudo docker-compose down
+docker-compose down
 
-sudo docker-compose build
+docker-compose build
 
-sudo docker-compose up -d
+docker-compose up -d
 echo "Deployed!"
