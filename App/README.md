@@ -15,12 +15,12 @@ Le thème est "VPS Builder".
 4. Se rendre dans le dossier `Frontend/` et exécuter la commande `npm install`
 
 Syntaxe du fichier .env :
-SECRET=[random string]
-DB_PASSWORD=
-DB_USER=
-DB_HOST=
-DB_NAME=
-CORS_URL = http://localhost:4200
+- SECRET=[random string]
+- DB_PASSWORD=
+- DB_USER=
+- DB_HOST=
+- DB_NAME=
+- CORS_URL = http://localhost:4200
 
 ### Exécution du projet
 
