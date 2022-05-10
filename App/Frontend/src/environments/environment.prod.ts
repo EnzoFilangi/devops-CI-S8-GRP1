@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: "https://shrek.fr/api",
+  api_url: "//shrek.fr/api",
 };
