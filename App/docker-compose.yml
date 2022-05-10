@@ -9,9 +9,9 @@ services:
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      - '3306:3306'
+      - '3307:3306'
     expose:
-      - '3306'
+      - '3307'
     volumes:
       - my-db:/var/lib/mysql
       - ./SQL/Database_creation.sql:/docker-entrypoint-initdb.d/1.sql
@@ -23,7 +23,7 @@ services:
     environment:
       DB_USER: 'user'
       DB_PASSWORD: 'password'
-      DB_HOST: 'host.docker.internal'
+      DB_HOST: 'host.docker.internal:3307'
       DB_NAME: 'app'
     ports:
       - '3000:3000'
