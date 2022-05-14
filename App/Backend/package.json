@@ -5,7 +5,7 @@
   "main": "server/routes/api.js",
   "scripts": {
     "start-dev": "nodemon index.js",
-    "testEnvironment": "node",
+    "test": "set NODE_ENV=test&& npx mocha --exit ./tests/server/login.spec.js",
     "start": "node ./bin/www"
   },
   "author": "Enzo Filangi",
@@ -21,5 +21,10 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "pdfkit": "^0.12.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.3"
   }
 }
