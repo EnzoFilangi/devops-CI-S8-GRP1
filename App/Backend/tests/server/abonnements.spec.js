@@ -1,4 +1,3 @@
-const request = require('supertest')
 const app = require('../../server/app')
 const { expect } = require('chai')
 const { setupTestDatabase, testDatabase } = require('../helpers/testDatabase')
