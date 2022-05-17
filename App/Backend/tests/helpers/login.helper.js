@@ -48,6 +48,31 @@ module.exports.getWithAuth = async function ({ app, cookies: rawCookies }, url, 
     return [response, extractRawCookies(response)]
 }
 
+module.exports.postWithAuth = async function ({ app, cookies: rawCookies }, url, body={}) {
+    const cookies = parseCookies(rawCookies)
+    const response = await request(app)
+        .post(url)
+        .send(body)
+        .set('Cookie', rawCookies)
+        .withCredentials()
+        .set('X-CSRF-TOKEN', (cookies['XSRF-TOKEN'] || '').split(';')[0])
+        .expect('set-cookie', /XSRF-TOKEN=[^;]+; Path=\//)
+
+    return [response, extractRawCookies(response)]
+}
+
+module.exports.deleteWithAuth = async function ({ app, cookies: rawCookies }, url) {
+    const cookies = parseCookies(rawCookies)
+    const response = await request(app)
+        .delete(url)
+        .set('Cookie', rawCookies)
+        .withCredentials()
+        .set('X-CSRF-TOKEN', (cookies['XSRF-TOKEN'] || '').split(';')[0])
+        .expect('set-cookie', /XSRF-TOKEN=[^;]+; Path=\//)
+
+    return [response, extractRawCookies(response)]
+}
+
 module.exports.createUser = async function (db, { nom, prenom, email, password }) {
     try {
         await db.query(
