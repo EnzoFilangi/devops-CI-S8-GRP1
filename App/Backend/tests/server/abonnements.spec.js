@@ -38,7 +38,7 @@ describe('abonnements', function () {
     })
 
     describe('GET /abonnement/:id', function () {
-        it('should get one specific subscription', async function () {
+        it('should get the specified subscription', async function () {
             const abonnementId = (await testDatabase.query("SELECT MAX(id) AS id from abonnement"))[0][0]['id']
 
             const [loginResponse, cookies] = await loginAs(app, credential)
