@@ -1,34 +1,40 @@
 const request = require('supertest')
 const bcrypt = require('bcrypt')
 
-function parseCookies (cookie) {
+function parseCookies(cookie) {
     return cookie
-        ? Object.fromEntries(cookie.map(v => v.split(/[=;]/).slice(0, 2)))
-        : {};
+        ? Object.fromEntries(cookie.map( v => v.split('=').slice(0, 2)))
+        : {}
 }
 
 function extractRawCookies(response) {
-    return response ? response.headers['set-cookie'] : [];
+    return response ? response.headers['set-cookie'] : []
 }
 
 module.exports.loginAs = async function (app, { username, password }) {
-    let response;
+    let response
+    let session
 
     const doLogin = async () => {
-        const rawCookies = extractRawCookies(response);
-        const cookies = parseCookies(rawCookies);
+        const rawCookies = extractRawCookies(response)
+        const cookies = parseCookies(rawCookies)
+
+        if ('sessionId' in cookies) {
+            session = `sessionId=${cookies['sessionId']}`
+        }
+
         return request(app)
             .post('/api/login')
             .send({ username, password })
             .set('Cookie', [...rawCookies])
             .withCredentials()
-            .set('X-CSRF-TOKEN', cookies['XSRF-TOKEN'] || '')
-            .expect('set-cookie', /XSRF-TOKEN=[^;]+; Path=\//);
+            .set('X-CSRF-TOKEN', (cookies['XSRF-TOKEN'] || '').split(';')[0])
+            .expect('set-cookie', /XSRF-TOKEN=[^;]+; Path=\//)
     }
 
-    response = await doLogin();
-    if (response.status === 403) response = await doLogin();
-    return response;
+    response = await doLogin()
+    if (response.status === 403) response = await doLogin()
+    return [response, session, extractRawCookies(response)]
 }
 
 module.exports.createUser = async function (db, { nom, prenom, email, password }) {
