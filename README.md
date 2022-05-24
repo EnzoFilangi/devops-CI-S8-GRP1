@@ -11,7 +11,3 @@ This is the repository of group 1 of the SE1 class
 - Paul GODIN
 - Carlos MADRUGA
 - Alex SALMON
-
-# Credits
-
-Application from https://github.com/cirosantilli/node-express-sequelize-nextjs-realworld-example-app
