@@ -3,12 +3,27 @@
   hosts: web
   connection: local
   # remote_user: root
-  tasks: 
-    - name: Installations
-      apt: name={{ item }} update_cache=yes state=latest
-      with_items:
+  vars:
+    packages:
       - git
       - node
       - mysql
       - nginx
+
+  tasks: 
+    - name: Install packages
+      become: true
+      become_user: root
+      apt: name={{ item }} update_cache=yes state=latest
+      with_items: "{{packages }}"
+      tags:
+        - install
+
+    - name: Remove packages
+      become: true
+      become_user: root
+      apt: name={{ item }} state=absent
+      with_items: "{{ packages }}"
+      tags:
+        - remove
 ...
