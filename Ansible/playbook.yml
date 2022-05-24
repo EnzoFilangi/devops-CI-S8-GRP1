@@ -1,0 +1,13 @@
+---
+- name: Installation des serveurs web
+  hosts: web
+  remote_user: root
+  tasks: 
+    - name: Installations
+      apt: name={{ item }} update_cache=yes state=latest
+    - with_items:
+      - git
+      - node
+      - mysql
+      - nginx
+...
