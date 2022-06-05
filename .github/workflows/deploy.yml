@@ -16,6 +16,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: run frontend tests
+        uses: test-frontend.yml@latest
+        continue-on-error: true
+        
+      - name: run backend tests
+        uses: test-back.yml@latest
+        continue-on-error: true
+    
       - name: log into VPS and trigger deploy script
         uses: appleboy/ssh-action@master
         with:
@@ -25,8 +33,16 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: sh ~/devops-CI-S8-GRP1/App/deploy.sh
           
-      - name: Run Discord Webhook
+      - name: notify success on discord
         uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ success() }}
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          content: "Test"
+          content: "Action successful"
+          
+      - name: notify failure on discord
+        uses: tsickert/discord-webhook@v4.0.0
+        if: ${{ failure() }}
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          content: "Action failed"
