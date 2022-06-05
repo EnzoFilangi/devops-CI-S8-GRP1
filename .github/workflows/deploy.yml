@@ -46,7 +46,17 @@ jobs:
         uses: tsickert/discord-webhook@v4.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          content: "Action successful"
+          embed-title: "✅ Deployment succeeded ✅"
+          # Green : https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
+          embed-color: 3066993
+          embed-description: |
+            Job statuses :
+            
+            - Frontend tests: ✅
+            
+            - Backend tests: ✅
+            
+            - Deployment: ✅
           
   notify-failure:
     needs: [run-frontend-tests, run-backend-tests, deploy]
@@ -59,6 +69,7 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           embed-title: "❌ Deployment failed ❌"
+          # Red : https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
           embed-color: 15158332
           embed-description: |
             Job statuses :
