@@ -24,6 +24,12 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
+    customLaunchers: {
+      ChromeHeadless_without_sandox: {
+        base: 'ChromeHeadless',
+        flags: [ '--no-sandbox' ],
+      },
+    },
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/ProgWebProjetM1'),
       subdir: '.',
