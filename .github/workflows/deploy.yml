@@ -24,3 +24,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: sh ~/devops-CI-S8-GRP1/App/deploy.sh
+      
+      - name: notify developers once the deployment is complete
+        uses: distributhor/workflow-webhook@v2.0.3
+        env:
+          webhook_url: "https://discord.com/api/webhooks/983009905994764300/KGS9Ccd--QcuIVfqSHAR4Ek_6L8YfrotjUgaZpSdsthrjUGjf7oIaB_dR0MEU7OZJ95q"
+          webhook_secret: ""
