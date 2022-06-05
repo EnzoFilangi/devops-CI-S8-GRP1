@@ -5,13 +5,17 @@ const mysql = require("mysql2/promise")
 const dotenv = require('dotenv')
 dotenv.config()
 
+const environment = process.env.NODE_ENV;
+console.log(`NODE_ENV=${environment}`);
+const dbNameKey = `${environment === 'test' ? 'TEST_' : ''}DB_NAME`;
+
 const database = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    database: process.env.DB_NAME,
+    database: process.env[dbNameKey],
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT || 3306,
-    dateStrings : true
+    dateStrings: true
 });
 
 /*
