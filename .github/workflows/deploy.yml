@@ -21,7 +21,13 @@ jobs:
     #uses: ./.github/workflows/test-frontend.yml
     
   run-backend-tests:
-    uses: ./.github/workflows/test-back.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Succeed
+        # Succeed on purpose to test notify-failure
+        run: |
+          exit 0
+    #uses: ./.github/workflows/test-back.yml
 
   deploy:
     needs: [run-frontend-tests, run-backend-tests]
@@ -62,4 +68,12 @@ jobs:
         uses: tsickert/discord-webhook@v4.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          content: "Action failed"
+          embed-title: "❌ Deployment failed ❌"
+          embed-color: 15158332
+          content: |
+            Job statuses :
+            - Frontend tests: ${{ jobs.run-frontend-tests.status }}
+            - Backend tests: ${{ jobs.run-backend-tests.status }}
+            - Deploy tests: ${{ jobs.deploy.status }}
+            
+          
