@@ -12,7 +12,13 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   run-frontend-tests:
-    uses: ./.github/workflows/test-frontend.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Succeed
+        # Fail on purpose to test notify-failure
+        run: |
+          exit 1 
+    #uses: ./.github/workflows/test-frontend.yml
     
   run-backend-tests:
     uses: ./.github/workflows/test-back.yml
