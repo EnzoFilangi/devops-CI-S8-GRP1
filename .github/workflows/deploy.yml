@@ -76,7 +76,7 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           embed-title: "❌ Deployment failed ❌"
           embed-color: 15158332
-          content: |
+          embed-description: |
             Job statuses :
             - Frontend tests: ${{ needs.run-frontend-tests.outputs.job-status }}
             - Backend tests: ${{ needs.run-backend-tests.outputs.job-status }}
