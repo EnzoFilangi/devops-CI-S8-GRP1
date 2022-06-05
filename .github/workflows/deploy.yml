@@ -78,8 +78,8 @@ jobs:
           embed-color: 15158332
           embed-description: |
             Job statuses :
-            - Frontend tests: ${{ needs.run-frontend-tests.outputs.job-status }}
-            - Backend tests: ${{ needs.run-backend-tests.outputs.job-status }}
-            - Deploy tests: ${{ needs.deploy.outputs.job-status }}
+            - Frontend tests: ${{ needs.run-frontend-tests.outputs.job-status == "success" && '✅' || '❌'}}
+            - Backend tests: ${{ needs.run-backend-tests.outputs.job-status == "success" && '✅' || '❌' }}
+            - Deploy tests: ${{ needs.deploy.outputs.job-status == "success" && '✅' || '❌' }}
             
           
