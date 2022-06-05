@@ -5,7 +5,7 @@
   "main": "server/routes/api.js",
   "scripts": {
     "start-dev": "nodemon index.js",
-    "test": "set NODE_ENV=test&& npx mocha --timeout 15000 --exit ./tests/server/factures.spec.js",
+    "test": "set NODE_ENV=test&& npx mocha --timeout 7000 --exit ./tests/server/**",
     "start": "node ./bin/www"
   },
   "author": "Enzo Filangi",
