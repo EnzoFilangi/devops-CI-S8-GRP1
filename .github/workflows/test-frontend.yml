@@ -16,4 +16,4 @@ jobs:
     steps:
      - uses: actions/checkout@v2
      - name: Test
-       run: docker-compose -f App/Front/docker-compose.test.yml up --abort-on-container-exit
+       run: docker-compose -f App/Frontend/docker-compose.test.yml up --abort-on-container-exit
