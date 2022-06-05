@@ -80,6 +80,6 @@ jobs:
             Job statuses :
             - Frontend tests: ${{ needs.run-frontend-tests.outputs.job-status == 'success' && '✅' || '❌'}}
             - Backend tests: ${{ needs.run-backend-tests.outputs.job-status == 'success' && '✅' || '❌' }}
-            - Deploy tests: ${{ needs.deploy.outputs.job-status == 'success' && '✅' || '❌' }}
+            - Deployment: ${{ needs.deploy.outputs.job-status == 'success' && '✅' || '❌' }}
             
           
