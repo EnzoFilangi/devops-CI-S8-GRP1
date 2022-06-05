@@ -10,10 +10,15 @@ on:
     paths:
       - 'App/Frontend/**'
   workflow_call:
+    outputs:
+      job-status: 
+        value: ${{ jobs.test.outputs.job-status }}
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      job-status: ${{ job.status }}
     steps:
      - uses: actions/checkout@v2
      - name: Test
