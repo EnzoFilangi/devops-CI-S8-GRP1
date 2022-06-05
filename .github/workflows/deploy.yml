@@ -26,7 +26,7 @@ jobs:
           script: sh ~/devops-CI-S8-GRP1/App/deploy.sh
           
       - name: Run Discord Webhook
-        uses: johnnyhuy/actions-discord-git-webhook@main 
+        uses: tsickert/discord-webhook@v4.0.0
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          censor_username: false
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          content: "Test"
