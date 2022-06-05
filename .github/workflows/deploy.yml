@@ -17,11 +17,11 @@ jobs:
 
     steps:
       - name: run frontend tests
-        uses: test-frontend.yml@latest
+        uses: ./.github/workflows/test-frontend.yml@latest
         continue-on-error: true
         
       - name: run backend tests
-        uses: test-back.yml@latest
+        uses: ./.github/workflows/test-back.yml@latest
         continue-on-error: true
     
       - name: log into VPS and trigger deploy script
