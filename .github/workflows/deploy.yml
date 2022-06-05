@@ -13,6 +13,8 @@ on:
 jobs:
   run-frontend-tests:
     runs-on: ubuntu-latest
+    outputs:
+      job-status: ${{ job.status }}
     steps:
       - name: Succeed
         # Fail on purpose to test notify-failure
@@ -22,6 +24,8 @@ jobs:
     
   run-backend-tests:
     runs-on: ubuntu-latest
+    outputs:
+      job-status: ${{ job.status }}
     steps:
       - name: Succeed
         # Succeed on purpose to test notify-failure
@@ -31,6 +35,8 @@ jobs:
 
   deploy:
     needs: [run-frontend-tests, run-backend-tests]
+    outputs:
+      job-status: ${{ job.status }}
     if: ${{ success() }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -72,8 +78,8 @@ jobs:
           embed-color: 15158332
           content: |
             Job statuses :
-            - Frontend tests: ${{ jobs.run-frontend-tests.status }}
-            - Backend tests: ${{ jobs.run-backend-tests.status }}
-            - Deploy tests: ${{ jobs.deploy.status }}
+            - Frontend tests: ${{ needs.run-frontend-tests.outputs.job-status }}
+            - Backend tests: ${{ needs.run-backend-tests.outputs.job-status }}
+            - Deploy tests: ${{ needs.deploy.outputs.job-status }}
             
           
