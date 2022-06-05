@@ -11,21 +11,22 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  run-frontend-tests:
+    uses: ./.github/workflows/test-frontend.yml
+    
+  run-backend-tests:
+    uses: ./.github/workflows/test-back.yml
+
   deploy:
+    needs: [run-frontend-tests, run-backend-tests]
+    if: ${{ success() }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    steps:
-      - name: run frontend tests
-        uses: ./.github/workflows/test-frontend.yml@latest
-        continue-on-error: true
-        
-      - name: run backend tests
-        uses: ./.github/workflows/test-back.yml@latest
-        continue-on-error: true
-    
+    steps:    
       - name: log into VPS and trigger deploy script
         uses: appleboy/ssh-action@master
+        if: ${{ success() }}
         with:
           host: ${{ secrets.SSH_HOST }} # uses secrets stored in the Secrets tab
           username: ${{ secrets.USERNAME }}
@@ -33,16 +34,26 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: sh ~/devops-CI-S8-GRP1/App/deploy.sh
           
+  notify-success:
+    needs: [run-frontend-tests, run-backend-tests, deploy]
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+
+    steps:
       - name: notify success on discord
         uses: tsickert/discord-webhook@v4.0.0
-        if: ${{ success() }}
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           content: "Action successful"
           
+  notify-failure:
+    needs: [run-frontend-tests, run-backend-tests, deploy]
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+
+    steps:
       - name: notify failure on discord
         uses: tsickert/discord-webhook@v4.0.0
-        if: ${{ failure() }}
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           content: "Action failed"
