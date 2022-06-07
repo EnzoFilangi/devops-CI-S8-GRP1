@@ -35,9 +35,9 @@ describe('FactureManagerService', () => {
     })
 
     it('should not use another currency format', () => {
-      expect(service.formatCurrency(100)).toContain('$');
-      expect(service.formatCurrency(100)).toContain('£');
-      expect(service.formatCurrency(100)).toContain('¥');
+      expect(service.formatCurrency(100)).not.toContain('$');
+      expect(service.formatCurrency(100)).not.toContain('£');
+      expect(service.formatCurrency(100)).not.toContain('¥');
     })
   })
 });
