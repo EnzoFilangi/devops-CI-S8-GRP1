@@ -22,4 +22,22 @@ describe('FactureManagerService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  describe('formatCurrency()', () => {
+    it('should take a price in cents and return it in euros', () => {
+      expect(service.formatCurrency(100)).toEqual(`1,00\xa0€`);
+      expect(service.formatCurrency(1)).toEqual(`0,01\xa0€`);
+      expect(service.formatCurrency(0)).toEqual(`0,00\xa0€`);
+      expect(service.formatCurrency(1000)).toEqual(`10,00\xa0€`);
+      expect(service.formatCurrency(1001)).toEqual(`10,01\xa0€`);
+      expect(service.formatCurrency(10001)).toEqual(`100,01\xa0€`);
+      expect(service.formatCurrency(100001)).toEqual(`1\u202f000,01\xa0€`);
+    })
+
+    it('should not use another currency format', () => {
+      expect(service.formatCurrency(100)).not.toContain('$');
+      expect(service.formatCurrency(100)).not.toContain('£');
+      expect(service.formatCurrency(100)).not.toContain('¥');
+    })
+  })
 });
