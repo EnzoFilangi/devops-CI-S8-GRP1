@@ -138,8 +138,7 @@ INSERT INTO formule(nom_formule, display_order, description, vcores, ram, disque
 																									 ("Confort", 2, "N'ayez plus de limites dans vos projets", 4, 8192, 500, 300),
 																									 ("Elite", 3, "Exploitez une incroyable puissance de calcul", 16, 32768, 1000, 1000),
 																									 ("Site web", 4, "Rendez votre site internet capable d'encaisser de nombreux utilisateurs", 4, 8192, 100, 1000),
-																									 ("Archivage cloud", 5, "Stockez vos fichiers pour qu'ils soient accessibles partout", 2, 1024, 2000, 1000),
-																									 ("Serveur Minecraft", 6, "C'est le mieux qu'on puisse vous offrir, et vous allez quand même le faire lagguer en installant trop de mods", 32, 65536, 2000, 1000);
+																									 ("Archivage cloud", 5, "Stockez vos fichiers pour qu'ils soient accessibles partout", 2, 1024, 2000, 1000);
 																					  
 
 
