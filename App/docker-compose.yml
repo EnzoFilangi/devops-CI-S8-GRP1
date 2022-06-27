@@ -12,6 +12,7 @@ services:
       - '3307:3306'
     expose:
       - '3306'
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     volumes:
       - my-db:/var/lib/mysql
       - ./SQL/Database_creation.sql:/docker-entrypoint-initdb.d/1.sql
@@ -42,3 +43,4 @@ services:
 
 volumes:
   my-db:
+
